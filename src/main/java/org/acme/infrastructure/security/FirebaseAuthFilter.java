@@ -33,11 +33,19 @@ public class FirebaseAuthFilter implements ContainerRequestFilter {
         }
 
         String authHeader = requestContext.getHeaders().getFirst("Authorization");
-        if(authHeader==null || !authHeader.startsWith("Bearer ")){
+        if(authHeader==null){
             requestContext.abortWith(
                     Response.status(Response.Status.UNAUTHORIZED)
                             .entity("No autorizado").build()
             );
+            return;
+        }
+        if(!authHeader.startsWith("Bearer ")){
+            requestContext.abortWith(
+                    Response.status(Response.Status.UNAUTHORIZED)
+                            .entity("No autorizado").build()
+            );
+            return;
         }
         String token = authHeader.substring("Bearer ".length());
         try {
@@ -59,6 +67,7 @@ public class FirebaseAuthFilter implements ContainerRequestFilter {
                     Response.status(Response.Status.UNAUTHORIZED)
                             .entity("No autorizado").build()
             );
+
         }
 
     }
