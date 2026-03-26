@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import org.acme.application.dto.CreateTodoDto;
 import org.acme.domain.models.Todo;
 import org.acme.domain.repository.TodoRepository;
+import org.acme.infrastructure.security.AuthContext;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -14,12 +15,16 @@ public class CreateTodoUseCase {
 
     private final TodoRepository todoRepository;
 
+    private final AuthContext authContext;
+
     @Inject
-    public CreateTodoUseCase(TodoRepository todoRepository) {
+    public CreateTodoUseCase(TodoRepository todoRepository, AuthContext authContext) {
         this.todoRepository = todoRepository;
+        this.authContext = authContext;
     }
 
     public Todo execute(CreateTodoDto todoDto) {
+        System.out.println("Quien esta creando un todo es: "+ authContext.getUser().getId()+ " "+ authContext.getUser().getFullName());
         Todo todo=new Todo();
         todo.setTitle(todoDto.getTitle());
         todo.setDescription(todoDto.getDescription());
