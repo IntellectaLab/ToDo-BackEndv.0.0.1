@@ -26,10 +26,13 @@ public class CreateTodoUseCase {
     public Todo execute(CreateTodoDto todoDto) {
         System.out.println("Quien esta creando un todo es: "+ authContext.getUser().getId()+ " "+ authContext.getUser().getFullName());
         Todo todo=new Todo();
+
         todo.setTitle(todoDto.getTitle());
         todo.setDescription(todoDto.getDescription());
         todo.setId(UUID.randomUUID());
         todo.setCreatedAt(LocalDateTime.now());
-        return todoRepository.save(todo);
+        todo = todoRepository.save(todo);
+        System.out.println("Esta llegando al final de la logica de negocio");
+        return todo;
     }
 }
