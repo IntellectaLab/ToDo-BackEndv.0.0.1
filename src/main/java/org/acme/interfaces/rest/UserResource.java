@@ -1,6 +1,7 @@
 package org.acme.interfaces.rest;
 
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -25,7 +26,7 @@ public class UserResource {
     }
 
     @POST
-    public Response registerUser(RegisterUserDto registerUserDto) {
+    public Response registerUser(@Valid RegisterUserDto registerUserDto) {
         try {
             return Response.ok(registerUserUseCase.execute(registerUserDto)).build();
         }catch (Exception e){
