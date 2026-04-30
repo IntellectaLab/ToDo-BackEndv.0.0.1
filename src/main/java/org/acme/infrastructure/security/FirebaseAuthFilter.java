@@ -26,6 +26,9 @@ public class FirebaseAuthFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
+        if(requestContext.getMethod().equalsIgnoreCase("OPTIONS")){
+            return;
+        }
         String path=requestContext.getUriInfo().getPath();
         System.out.println(path);
         if(path.equals("/users")){
