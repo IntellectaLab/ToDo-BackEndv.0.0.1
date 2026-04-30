@@ -58,6 +58,8 @@ steps:
           --image "$$IMAGE" \
           --region ${_REGION} \
           --platform managed \
-          --allow-unauthenticated
+          --allow-unauthenticated \
+          --set-secrets="FIREBASE_SERVICE_ACCOUNT=firebase-service-account:latest" \
+          --set-env-vars="QUARKUS_HTTP_PORT=8080"
 
 timeout: 1800s
